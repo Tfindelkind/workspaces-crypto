@@ -3,8 +3,9 @@ import { Line } from 'react-chartjs-2';
 import axios from 'axios';
 import 'chart.js/auto';
 
-const FedInterestRatesOverlay = ({ bitcoinData }) => {
+const FedInterestRatesOverlay = ({ bitcoinData, selectedCryptos }) => {
   const [fedRatesData, setFedRatesData] = useState([]);
+  const [cryptoData, setCryptoData] = useState({});
 
   useEffect(() => {
     const fetchFedRatesData = async () => {
@@ -24,8 +25,27 @@ const FedInterestRatesOverlay = ({ bitcoinData }) => {
       setFedRatesData(result.data.observations);
     };
 
+    const fetchCryptoData = async (crypto) => {
+      const result = await axios.get(
+        `https://api.coingecko.com/api/v3/coins/${crypto.id}/market_chart`,
+        {
+          params: {
+            vs_currency: 'usd',
+            days: 7,
+          },
+        }
+      );
+      setCryptoData((prevData) => ({
+        ...prevData,
+        [crypto.id]: result.data.prices,
+      }));
+    };
+
     fetchFedRatesData();
-  }, []);
+    selectedCryptos.forEach((crypto) => {
+      fetchCryptoData(crypto);
+    });
+  }, [selectedCryptos]);
 
   const data = {
     labels: bitcoinData.map((price) => new Date(price[0]).toLocaleDateString()),
@@ -44,6 +64,13 @@ const FedInterestRatesOverlay = ({ bitcoinData }) => {
         backgroundColor: 'rgba(255,99,132,0.4)',
         borderColor: 'rgba(255,99,132,1)',
       },
+      ...selectedCryptos.map((crypto) => ({
+        label: `${crypto.name} Price (USD)`,
+        data: cryptoData[crypto.id]?.map((price) => price[1]) || [],
+        fill: false,
+        backgroundColor: 'rgba(255,206,86,0.4)',
+        borderColor: 'rgba(255,206,86,1)',
+      })),
     ],
   };
 

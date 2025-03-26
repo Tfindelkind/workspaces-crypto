@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SearchBox = ({ onAddCrypto }) => {
+const SearchBox = ({ onAddCrypto, selectedCryptos }) => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
 
@@ -41,6 +41,14 @@ const SearchBox = ({ onAddCrypto }) => {
           <li key={crypto.id}>
             {crypto.name} ({crypto.symbol})
             <button onClick={() => handleAddCrypto(crypto)}>Add</button>
+          </li>
+        ))}
+      </ul>
+      <h2>Selected Cryptocurrencies</h2>
+      <ul>
+        {selectedCryptos.map((crypto) => (
+          <li key={crypto.id}>
+            {crypto.name} ({crypto.symbol})
           </li>
         ))}
       </ul>
