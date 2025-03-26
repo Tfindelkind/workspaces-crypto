@@ -8,3 +8,5 @@ Demo/Showcase repo to show the github copilot workspace feature
 - The selected crypto currency could be added to table
 
 - Create a diagram which creates a relation between bitcoin pricing and US Fed interest rates
+
+- Make sure that a document will be generated which list all steps to isntall and run this app
