@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import BitcoinPriceChart from './components/BitcoinPriceChart';
-import FedInterestRatesOverlay from './components/FedInterestRatesOverlay';
 import SearchBox from './components/SearchBox';
 
 const App = () => {
@@ -55,7 +54,6 @@ const App = () => {
         </tbody>
       </table>
       <BitcoinPriceChart selectedCryptos={selectedCryptos} />
-      <FedInterestRatesOverlay bitcoinData={selectedCryptos} />
     </div>
   );
 };
