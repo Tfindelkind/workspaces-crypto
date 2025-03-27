@@ -11,6 +11,8 @@ Demo/Showcase repo to show the github copilot workspace feature
 
 - Make sure that a document will be generated which list all steps to isntall and run this app
 
+- ich möchte webapp haben die Bitcoin chart anzeigt der letzen 7 tage mit javascript
+
 ## Installation and Running the App
 
 1. Clone the repository:
